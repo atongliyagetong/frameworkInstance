@@ -15,7 +15,8 @@
         </environment>
     </environments>
     <mappers>
-        <!--<mapper resource="mappers/cg_ddmxMapper.xml"/>-->
-        <mapper class="com.isoftstone.mybatis.mapper.ck_ddmxMapper"/>
+        <mapper resource="mappers/GlfMapper.xml"/>
+        <!--<mapper class="com.isoftstone.mybatis.mapper.GlfMapper-->
+        <!--<package name="com.isoftstone.mybatis.mapper"/>-->
     </mappers>
 </configuration>

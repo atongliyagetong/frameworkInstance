@@ -1,6 +1,6 @@
 package com.isoftstone.mybatis.entity;
 
-public class Ck_GLF {
+public class Glf {
     public String bfh;
     public String bfhh;
     public String ljh;
@@ -76,7 +76,7 @@ public class Ck_GLF {
 
     @Override
     public String toString() {
-        return "Ck_GLF{" +
+        return "Glf{" +
                 "bfh='" + bfh + '\'' +
                 ", bfhh='" + bfhh + '\'' +
                 ", ljh='" + ljh + '\'' +
