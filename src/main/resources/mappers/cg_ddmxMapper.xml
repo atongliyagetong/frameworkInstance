@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iss.ole.jk.in.ba">
+	<select id="queryGlf" parameterType="com.isoftstone.mybatis.entity.Ck_GLF" resultType="com.isoftstone.mybatis.entity.Ck_GLF">
+		select * from CK_GLF
+	</select>
+
+
+
+</mapper>
