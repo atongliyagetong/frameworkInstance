@@ -16,6 +16,6 @@
     </environments>
     <mappers>
         <!--<mapper resource="mappers/cg_ddmxMapper.xml"/>-->
-        <mapper class="com.isoftstone"
+        <mapper class="com.isoftstone.mybatis.mapper.ck_ddmxMapper"/>
     </mappers>
 </configuration>
