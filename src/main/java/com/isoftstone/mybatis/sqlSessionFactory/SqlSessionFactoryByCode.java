@@ -24,7 +24,8 @@ public class SqlSessionFactoryByCode {
             TransactionFactory transactionFactory = new JdbcTransactionFactory();
             Environment environment = new Environment("development", transactionFactory, dataSource);
             Configuration configuration = new Configuration(environment);
-            configuration.addMapper(GlfMapper.class);
+//            configuration.addMapper(GlfMapper.class);
+            configuration.addMappers("com.isoftstone.mybatis.mapper",GlfMapper.class);
             SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
             sqlSession = sqlSessionFactory.openSession();
         } catch (Exception e) {

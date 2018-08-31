@@ -40,6 +40,20 @@
 
   <build>
     <finalName>frameworkInstance</finalName>
+      <resources>
+          <resource>
+            <directory>src/main/java</directory>
+              <excludes>
+                  <exclude>**/*.java</exclude>
+              </excludes>
+          </resource>
+        <resource>
+          <directory>src/main/resources</directory>
+          <excludes>
+            <exclude>**/*.java</exclude>
+          </excludes>
+        </resource>
+      </resources>
     <plugins>
       <plugin>
         <groupId>org.eclipse.jetty</groupId>
