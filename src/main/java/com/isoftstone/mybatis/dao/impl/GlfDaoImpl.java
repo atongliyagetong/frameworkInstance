@@ -17,7 +17,11 @@ public class GlfDaoImpl implements GlfDao {
     @Override
     public List<Glf> queryGlf(Glf ck_glf) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        List<Glf> list = sqlSession.selectList("queryGlf");
-        return list;
+        try {
+            List<Glf> list = sqlSession.selectList("queryGlf");
+            return list;
+        } finally {
+            sqlSession.close();
+        }
     }
 }
