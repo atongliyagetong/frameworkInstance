@@ -2,10 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.isoftstone.mybatis.mapper.GlfMapper">
-	<select id="queryGlf" parameterType="com.isoftstone.mybatis.entity.Glf" resultType="com.isoftstone.mybatis.entity.Glf">
-		select * from CK_GLF
+    <sql id="userColumns">
+        BFH  ,
+        LJH  ,
+        XMH  ,
+        LRRGH,
+        BFHH ,
+        CKBM ,
+        GCBH ,
+        JLDW ,
+        GYSBM,
+        BFR  ,
+        BFSL ,
+        BFSJ
+    </sql>
+
+	<select id="queryGlf" parameterType="com.isoftstone.mybatis.entity.Glf" resultType="com.isoftstone.mybatis.entity.Glf" fetchSize="10">
+		select <include refid="userColumns"/> from CK_GLF
 	</select>
 
+	<insert id="insertMybatis" parameterType="com.isoftstone.mybatis.entity.Mybatis">
+		<selectKey keyProperty="id" resultType="int" order="BEFORE">
+			select ABS(CAST(DBMS_RANDOM.RANDOM as INTEGER))a from dual
+		</selectKey>
+		insert into TEST_MYBATS
+		(id, bfh, BFHH) values(#{id}, #{bfh}, #{bfhh})
+	</insert>
 
 
 </mapper>
