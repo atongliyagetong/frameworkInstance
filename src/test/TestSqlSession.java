@@ -1,7 +1,7 @@
 import com.isoftstone.mybatis.dao.GlfDao;
 import com.isoftstone.mybatis.dao.impl.GlfDaoImpl;
 import com.isoftstone.mybatis.entity.Glf;
-import com.isoftstone.mybatis.entity.GlfResultMap;
+import com.isoftstone.mybatis.mapper.GlfResultMap;
 import com.isoftstone.mybatis.entity.Mybatis;
 import com.isoftstone.mybatis.entity.XmJhgl;
 import com.isoftstone.mybatis.mapper.GlfMapper;

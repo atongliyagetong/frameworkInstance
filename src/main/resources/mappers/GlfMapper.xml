@@ -2,6 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.isoftstone.mybatis.mapper.GlfMapper">
+    <resultMap id="glfMap" type="com.isoftstone.mybatis.mapper.GlfResultMap">
+        <id property="_bfh" column="bfh" javaType="string" jdbcType="VARCHAR"/>
+        <result property="_ljh" column="LJH" javaType="string" jdbcType="VARCHAR" />
+        <result property="_xmh" column="XMH" javaType="string" jdbcType="VARCHAR" />
+        <result property="_lrrgh" column="LRRGH" javaType="string" jdbcType="VARCHAR" />
+        <result property="_bfhh" column="BFHH" javaType="string" jdbcType="VARCHAR" />
+        <result property="_ckbm" column="CKBM" javaType="string" jdbcType="VARCHAR" />
+        <result property="_gcbh" column="GCBH" javaType="string" jdbcType="VARCHAR" />
+        <result property="_jldw" column="JLDW" javaType="string" jdbcType="VARCHAR" />
+        <result property="_gysbm" column="gysbm" javaType="string" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="glfConstructorMap" type="com.isoftstone.mybatis.mapper.GlfResultMap">
+        <constructor>
+            <idArg column="bfh" javaType="string"/>
+            <arg column="ljh" javaType="string" />
+            <arg column="xmh" javaType="string" />
+            <arg column="lrrgh" javaType="string" />
+            <arg column="bfhh" javaType="string" />
+            <arg column="ckbm" javaType="string" />
+            <arg column="gcbh" javaType="string" />
+            <arg column="jldw" javaType="string" />
+            <arg column="gysbm" javaType="string" />
+        </constructor>
+    </resultMap>
     <sql id="userColumns">
         BFH  ,
         LJH  ,
@@ -21,12 +45,20 @@
 		select <include refid="userColumns"/> from CK_GLF
 	</select>
 
+    <select id="findGlf" parameterType="com.isoftstone.mybatis.mapper.GlfResultMap" resultMap="glfMap">
+        select <include refid="userColumns"/> from CK_GLF
+    </select>
+
+    <select id="findGlfByConstructResultMap" parameterType="com.isoftstone.mybatis.mapper.GlfResultMap" resultMap="glfConstructorMap">
+        select <include refid="userColumns"/> from CK_GLF
+    </select>
+
 	<insert id="insertMybatis" parameterType="com.isoftstone.mybatis.entity.Mybatis">
 		<selectKey keyProperty="id" resultType="int" order="BEFORE">
 			select ABS(CAST(DBMS_RANDOM.RANDOM as INTEGER))a from dual
 		</selectKey>
 		insert into TEST_MYBATS
-		(id, bfh, BFHH) values(#{id}, #{bfh}, #{bfhh})
+		(id, bfh, BFHH) values(#{id}, #{bfh}, #{bfhh,jdbcType=VARCHAR})
 	</insert>
 
 

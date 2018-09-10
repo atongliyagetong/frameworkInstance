@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.isoftstone.mybatis.mapper.XmJhglMapper">
+  <resultMap id="jhglResultMap" type="com.isoftstone.mybatis.entity.XmJhgl">
+    <id property="xmbh" column="xmbh" />
+    <id property="jhh" column="jhh"/>
+    <result property="pch" column="pch" />
+    <result property="cjsj" column="cjsj" />
+    <result property="jhzt" column="jhzt" />
+    <result property="jhmc" column="jhmc" />
+    <result property="xgr" column="xgr" />
+    <result property="xgsj" column="xgsj" />
+    <result property="hzdhsj" column="hzdhsj" />
+    <result property="zzdhsj" column="zzdhsj" />
+    <result property="byzd3" column="byzd3" />
+    <result property="ygzt" column="ygzt" />
+    <result property="zbzt" column="zbzt" />
+    <result property="jd" column="jd" />
+    <association property="cgMxqz" column="cgNxqz_id" javaType="com.isoftstone.mybatis.entity.CgMxqz" resultMap="cgMxqzResultMap"/>
+  </resultMap>
+
+  <resultMap id="cgMxqzResultMap" type="com.isoftstone.mybatis.entity.CgMxqz">
+      <id property="xqbc" column="xqbc"/>
+      <id property="jhh" column="jhh"/>
+      <result property="cfsj" column="cfsj" />
+      <result property="sfjsdd" column="sfjsdd" />
+      <result property="xmh" column="xmh" />
+      <result property="lx" column="lx" />
+      <result property="jd" column="jd" />
+      <result property="sfyjs" column="sfyjs" />
+      <result property="jsr" column="jsr" />
+      <result property="jsddsj" column="jsddsj" />
+  </resultMap>
+
+  <resultMap id="jhglResultMapNestedSelect" type="com.isoftstone.mybatis.entity.XmJhgl">
+    <id property="xmbh" column="xmbh" />
+    <id property="jhh" column="jhh"/>
+    <result property="pch" column="pch" />
+    <result property="cjsj" column="cjsj" />
+    <result property="jhzt" column="jhzt" />
+    <result property="jhmc" column="jhmc" />
+    <result property="xgr" column="xgr" />
+    <result property="xgsj" column="xgsj" />
+    <result property="hzdhsj" column="hzdhsj" />
+    <result property="zzdhsj" column="zzdhsj" />
+    <result property="byzd3" column="byzd3" />
+    <result property="ygzt" column="ygzt" />
+    <result property="zbzt" column="zbzt" />
+    <result property="jd" column="jd" />
+    <association property="cgMxqz" column="cgNxqz_id" javaType="com.isoftstone.mybatis.entity.CgMxqz" select="queryMxqz"/>
+  </resultMap>
+
+  <select id="queryXmjhglNestedResult" parameterType="com.isoftstone.mybatis.entity.XmJhgl" resultMap="jhglResultMap">
+    select a.*,b.* from XM_JHGL a
+    left join CG_MXQZ b
+    on a.jhh = b.JHH
+    <where>
+      <if test="jhh!=null">
+        a.jhh = #{jhh}
+      </if>
+    </where>
+  </select>
+
+  <select id="queryXmjhglNestedSelect" parameterType="com.isoftstone.mybatis.entity.XmJhgl" resultMap="jhglResultMapNestedSelect">
+    select * from XM_JHGL
+    <where>
+      <if test="jhh!=null">
+        jhh = #{jhh}
+      </if>
+    </where>
+  </select>
+
+  <select id="queryMxqz" parameterType="com.isoftstone.mybatis.entity.XmJhgl" resultType="com.isoftstone.mybatis.entity.CgMxqz">
+      select * from CG_MXQZ
+      where jhh=#{jhh}
+  </select>
+
+
+</mapper>
