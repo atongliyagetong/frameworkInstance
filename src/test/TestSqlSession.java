@@ -1,12 +1,18 @@
 import com.isoftstone.mybatis.dao.GlfDao;
 import com.isoftstone.mybatis.dao.impl.GlfDaoImpl;
 import com.isoftstone.mybatis.entity.Glf;
+import com.isoftstone.mybatis.entity.GlfResultMap;
+import com.isoftstone.mybatis.entity.Mybatis;
+import com.isoftstone.mybatis.entity.XmJhgl;
 import com.isoftstone.mybatis.mapper.GlfMapper;
 import com.isoftstone.mybatis.mapper.GlfMapperAnnotation;
+import com.isoftstone.mybatis.mapper.XmJhglMapper;
+import com.isoftstone.mybatis.objectFactory.GlfFactory;
 import com.isoftstone.mybatis.sqlSessionFactory.SqlSessionFactoryAnnotationMapper;
 import com.isoftstone.mybatis.sqlSessionFactory.SqlSessionFactoryByCode;
 import com.isoftstone.mybatis.sqlSessionFactory.SqlSessionFactoryByXml;
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -79,4 +85,80 @@ public class TestSqlSession {
         }
     }
 
+    /**
+     * 测试ObjectFactory
+     */
+    @Test
+    public void testDefaultObjectFactory() {
+        SqlSession sqlSession = SqlSessionFactoryByXml.getSeqSession();
+        DefaultObjectFactory defaultObjectFactory = new GlfFactory();
+        Glf glf = defaultObjectFactory.create(Glf.class);
+        System.out.println(glf);
+    }
+
+    /**
+     * 测试插入
+     */
+    @Test
+    public void testMapperInsert() {
+        SqlSession sqlSession = SqlSessionFactoryByXml.getSeqSession();
+        GlfMapper glfMapper = sqlSession.getMapper(GlfMapper.class);
+        Mybatis mybatis = new Mybatis();
+        mybatis.setBfh("34125432");
+//        mybatis.setBfhh("00010");
+        Integer affectRowCount = glfMapper.insertMybatis(mybatis);
+        sqlSession.commit();
+        sqlSession.close();
+        System.out.println(affectRowCount);
+    }
+
+    @Test
+    public void testResultMap() {
+        SqlSession sqlSession = SqlSessionFactoryByXml.getSeqSession();
+        GlfMapper glfMapper = sqlSession.getMapper(GlfMapper.class);
+        List<GlfResultMap> glfList =  glfMapper.findGlf(null);
+        for (GlfResultMap glf : glfList) {
+            System.out.println(glf);
+        }
+        sqlSession.close();
+    }
+
+    @Test
+    public void testResultMapConstructor() {
+        SqlSession sqlSession = SqlSessionFactoryByXml.getSeqSession();
+        GlfMapper glfMapper = sqlSession.getMapper(GlfMapper.class);
+        List<GlfResultMap> glfList =  glfMapper.findGlfByConstructResultMap(null);
+        for (GlfResultMap glf : glfList) {
+            System.out.println(glf);
+        }
+        sqlSession.close();
+    }
+
+    /**
+     * 嵌套查询
+     */
+    @Test
+    public void testResultMapAssocationNestedQuery() {
+        SqlSession sqlSession = SqlSessionFactoryByXml.getSeqSession();
+        XmJhglMapper xmJhglMapper = sqlSession.getMapper(XmJhglMapper.class);
+        XmJhgl xmJhgl = new XmJhgl();
+        xmJhgl.setJhh("PT170310A1");
+        XmJhgl xmjhgl = xmJhglMapper.queryXmjhglNestedSelect(xmJhgl);
+        System.out.println(xmjhgl);
+        sqlSession.close();
+    }
+
+    /**
+     * 嵌套结果
+     */
+    @Test
+    public void testResultMapAssocationNestedResult() {
+        SqlSession sqlSession = SqlSessionFactoryByXml.getSeqSession();
+        XmJhglMapper xmJhglMapper = sqlSession.getMapper(XmJhglMapper.class);
+        XmJhgl xmJhgl = new XmJhgl();
+        xmJhgl.setJhh("PT170310A1");
+        XmJhgl xmjhgl = xmJhglMapper.queryXmjhglNestedResult(xmJhgl);
+        System.out.println(xmjhgl);
+        sqlSession.close();
+    }
 }
